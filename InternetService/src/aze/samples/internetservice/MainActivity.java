@@ -39,28 +39,6 @@ public class MainActivity extends Activity {
 
 	}
 
-	public String ping(String url) {
-		String str = "";
-		try {
-			Process process = Runtime.getRuntime().exec("/system/bin/ping -c 8 " + url);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			int i;
-			char[] buffer = new char[4096];
-			StringBuffer output = new StringBuffer();
-			while ((i = reader.read(buffer)) > 0)
-				output.append(buffer, 0, i);
-			reader.close();
-
-			// body.append(output.toString()+"\n");
-			str = output.toString();
-			// Log.d(TAG, str);
-		} catch (IOException e) {
-			// body.append("Error\n");
-			e.printStackTrace();
-		}
-		return str;
-	}
-
 	public boolean isNetworkConnected() {
 		try {
 			ConnectivityManager mConnectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -69,7 +47,6 @@ public class MainActivity extends Activity {
 				if (mNetworkInfos != null) {
 					for (int i = 0; i < mNetworkInfos.length; i++) {
 						if (mNetworkInfos[i].getState() == NetworkInfo.State.CONNECTED) {
-							System.out.println("Azhar " + System.currentTimeMillis() + "  true");
 							return true;
 						}
 					}
@@ -78,7 +55,6 @@ public class MainActivity extends Activity {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		System.out.println("Azhar " + System.currentTimeMillis() + "  false");
 		return false;
 	}
 
